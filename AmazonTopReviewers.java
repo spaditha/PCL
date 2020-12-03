@@ -140,6 +140,7 @@ public class AmazonTopReviewers extends Configured implements Tool {
 		private JsonParser parser;		// This gson parser will help us parse JSON
 		
 		private ReviewerAverageTuple reviewerAverage = new ReviewerAverageTuple();
+		private ReviewerAverageTuple reviewerSum = new ReviewerAverageTuple();
 		private Text reviewerName = new Text();
 
 		// This setup method is called once before the task is started
@@ -244,9 +245,15 @@ public class AmazonTopReviewers extends Configured implements Tool {
 			double sum = 0;
 			long count = 0;
 			for (ReviewerAverageTuple reviewerAverage : values) {
-				sum += reviewerSum.getSum();
+				//sum += reviewerSum.getSum();
 				//sum = sum + reviewerSum.getSum();
 				count += reviewerAverage.getCount();
+
+			}
+			for (ReviewerAverageTuple reviewerSum : values) {
+				sum += reviewerSum.getSum();
+				//sum = sum + reviewerSum.getSum();
+				//count += reviewerAverage.getCount();
 
 			}
 			reviewcount.setCount(count);
