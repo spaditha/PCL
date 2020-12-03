@@ -156,7 +156,6 @@ public class AmazonTopReviewers extends Configured implements Tool {
 				
 				JsonObject jsonObject = jsonTree.getAsJsonObject();
 				
-				String reviewerID = jsonObject.get("reviewerID").getAsString();
 				String reviewer = jsonObject.get("reviewerName").getAsString();
 				double overall = Double.parseDouble(jsonObject.get("overall").getAsString());
 				
@@ -165,7 +164,6 @@ public class AmazonTopReviewers extends Configured implements Tool {
 				reviewerAverage.setCount(1);
 				reviewerName.set(reviewer);
 				
-                               // context.write(new Text(reviewerID),one);
 			       context.write(reviewerName, reviewerAverage, reviewerSum);
 	
 				
@@ -234,23 +232,23 @@ public class AmazonTopReviewers extends Configured implements Tool {
 	//public static class MapReduceReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 	public static class MapReduceReducer extends Reducer<Text, ReviewerAverageTuple, Text, ReviewerAverageTuple> {
 		
-		private ReviewerAverageTuple result = new ReviewerAverageTuple();
+		private ReviewerAverageTuple reviewcount = new ReviewerAverageTuple();
 
 		@Override
 		public void reduce(Text key, Iterable<ReviewerAverageTuple> values, Context context) throws IOException, InterruptedException {
 			double sum = 0;
 			long count = 0;
 			for (ReviewerAverageTuple reviewerAverage : values) {
-				//sum += count.get();
-				sum = sum + reviewerSum.getSum();
-				count = count + reviewerAverage.getCount();
+				sum += reviewerSum.getSum();
+				//sum = sum + reviewerSum.getSum();
+				count += reviewerAverage.getCount();
 
 			}
-			result.setCount(count);
-			result.setAverage(sum / count);
-			context.write(new Text(key.toString()), result);
+			reviewcount.setCount(count);
+			reviewcount.setAverage(sum / count);
+			context.write(new Text(key.toString()), reviewcount);
 
-			//context.write(key, new IntWritable(sum));
+			//context.write(key, new IntWritable(reviewcount));
 		}
 	}	
 
