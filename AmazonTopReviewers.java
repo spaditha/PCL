@@ -99,7 +99,7 @@ public class AmazonTopReviewers extends Configured implements Tool {
 		}
 
 		public Double getSum() {
-			return sum
+			return sum;
 		}
 		public void setSum(Double sum) {
 			this.sum = sum;
