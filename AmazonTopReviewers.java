@@ -87,6 +87,7 @@ public class AmazonTopReviewers extends Configured implements Tool {
 
 	public static class ReviewerAverageTuple implements Writable {
 		private Double average = new Double(0);
+		private Double sum = new Double(0);
 		private long count = 1;
 		
 		public Double getAverage() {
@@ -97,13 +98,17 @@ public class AmazonTopReviewers extends Configured implements Tool {
 			this.average = average;
 		}
 
+		public Double getSum() {
+			return sum
+		}
+		public void setSum(Double sum) {
+			this.sum = sum;
+		}
+
 		public long getCount() {
 			return count;
 		}
 
-		public Double getSum() {
-			return sum
-		}
 		public void setCount(long count) {
 			this.count = count;
 		}
