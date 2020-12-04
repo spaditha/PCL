@@ -170,7 +170,7 @@ public class AmazonTopReviewers extends Configured implements Tool {
 				reviewerAverage.setCount(1);
 				reviewerName.set(reviewer);
 				
-			       context.write(reviewerName, reviewerAverage, reviewerSum);
+			       context.write(reviewerName, reviewerAverage);
 	
 				
 				/*// Now we'll iterate through every top-level "key" in the JSON structure...
